@@ -14,6 +14,7 @@ Config                                              | GCE   | Vagrant | AWS | Az
 [debian-auto-upgrades](debian-auto-upgrades/)       | M n   | M n     | M n | M n
 [docker](docker/)                                   | M n   | M n     | M n |   n
 [etcd](etcd/)                                       | M     | M       | M   | M
+[scope-probe](scope-probe/)                         | M n   | M n     | M n | M n
 [fluentd-es](fluentd-es/) (pillar conditional)      | M n   | M n     | M n | M n
 [fluentd-gcp](fluentd-gcp/) (pillar conditional)    | M n   | M n     | M n | M n
 [generate-cert](generate-cert/)                     | M     | M       | M   | M

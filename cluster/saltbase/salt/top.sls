@@ -18,6 +18,7 @@ base:
     - kube-client-tools
     - kubelet
     - kube-proxy
+    - scope-probe
 {% if pillar.get('enable_node_logging', '').lower() == 'true' and pillar['logging_destination'] is defined %}
   {% if pillar['logging_destination'] == 'elasticsearch' %}
     - fluentd-es
@@ -54,6 +55,7 @@ base:
     - kube-client-tools
     - kube-master-addons
     - kube-admission-controls
+    - scope-probe
 {% if pillar.get('enable_node_logging', '').lower() == 'true' and pillar['logging_destination'] is defined %}
   {% if pillar['logging_destination'] == 'elasticsearch' %}
     - fluentd-es

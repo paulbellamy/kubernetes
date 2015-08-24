@@ -14,17 +14,17 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-ZONE=${KUBE_AWS_ZONE:-us-west-2a}
+ZONE=${KUBE_AWS_ZONE:-eu-west-3a}
 MASTER_SIZE=${MASTER_SIZE:-t2.micro}
 MINION_SIZE=${MINION_SIZE:-t2.micro}
-NUM_MINIONS=${NUM_MINIONS:-4}
+NUM_MINIONS=${NUM_MINIONS:-2}
 
 # Optional: Set AWS_S3_BUCKET to the name of an S3 bucket to use for uploading binaries
 # (otherwise a unique bucket name will be generated for you)
 #  AWS_S3_BUCKET=kubernetes-artifacts
 
 # Because regions are globally named, we want to create in a single region; default to us-east-1
-AWS_S3_REGION=${AWS_S3_REGION:-us-east-1}
+AWS_S3_REGION=${AWS_S3_REGION:-eu-west-1}
 
 # Which docker storage mechanism to use.
 DOCKER_STORAGE=${DOCKER_STORAGE:-aufs}

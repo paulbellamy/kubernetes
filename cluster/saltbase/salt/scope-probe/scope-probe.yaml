@@ -1,0 +1,30 @@
+# Put this on each host at /etc/kubernetes/manifests/scope-probe.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: scope-probe
+  namespace: kube-system
+spec:
+  hostNetwork: true
+  # hostPid: true # TODO: Not a thing, do we need this? or is hostproc mount enough?
+  containers:
+  - name: weavescope-probe
+    image: weaveworks/scope
+    command: ["/home/weave/entrypoint.sh", "--no-app", "--probe.docker.bridge", "cbr0", "--probe.docker", "true", "--probe.proc.root", "/hostproc", "scope-app"]
+    #securityContext: # TODO: Do we need this? It's prohibited by the kubelet settings, I think..
+    #  privileged: true
+    env:
+    - name: "DOCKER_BRIDGE"
+      value: "cbr0"
+    volumeMounts:
+    - name: dockersock
+      mountPath: /var/run/docker.sock
+    - name: hostproc
+      mountPath: /hostproc
+  volumes:
+  - name: dockersock
+    hostPath:
+      path: /var/run/docker.sock
+  - name: hostproc
+    hostPath:
+      path: /proc
