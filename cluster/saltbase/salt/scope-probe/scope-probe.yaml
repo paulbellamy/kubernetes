@@ -7,10 +7,15 @@ metadata:
 spec:
   hostNetwork: true
   # hostPid: true # TODO: Not a thing, do we need this? or is hostproc mount enough?
+  serviceAccount: default
+  serviceAccountName: default
+  restartPolicy: Always
+  dnsPolicy: ClusterFirst
   containers:
   - name: weavescope-probe
     image: weaveworks/scope
     command: ["/home/weave/entrypoint.sh", "--no-app", "--probe.docker.bridge", "cbr0", "--probe.docker", "true", "--probe.proc.root", "/hostproc", "scope-app"]
+    # command: ["/home/weave/entrypoint.sh", "--probe.docker.bridge", "cbr0", "--probe.docker", "true", "--probe.proc.root", "/hostproc"]
     #securityContext: # TODO: Do we need this? It's prohibited by the kubelet settings, I think..
     #  privileged: true
     env:
@@ -19,8 +24,13 @@ spec:
     volumeMounts:
     - name: dockersock
       mountPath: /var/run/docker.sock
+      readOnly: true
     - name: hostproc
       mountPath: /hostproc
+      readOnly: true
+    - name: ssl-certs
+      mountPath: /etc/ssl/certs
+      readOnly: true
   volumes:
   - name: dockersock
     hostPath:
@@ -28,3 +38,6 @@ spec:
   - name: hostproc
     hostPath:
       path: /proc
+  - name: ssl-certs
+    hostPath:
+      path: /etc/ssl/certs
